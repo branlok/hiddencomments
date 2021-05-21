@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { QueryClientProvider, QueryClient } from "react-query";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import Home from "./Routes/Home";
 
-function App() {
+const App = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+  const queryClient = new QueryClient();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Switch>
+        <router path="/" exact>
+            <Home/>
+
+          </router>
+          <router path="/signup" exact>
+            <SignUp />
+          </router>
+          <router path="/signin" exact>
+            <SignIn />
+          </router>
+          <router path="/dashboard" exact>
+            <Dashboard />
+          </router>
+        </Switch>
+      </Router>
+    </QueryClientProvider>
   );
-}
+};
 
 export default App;
