@@ -20,7 +20,6 @@ const App = () => {
         <Switch>
         <router path="/" exact>
             <Home/>
-
           </router>
           <router path="/signup" exact>
             <SignUp />
