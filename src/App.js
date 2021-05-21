@@ -13,7 +13,6 @@ import SignUp from "./components/SignUp";
 import Home from "./Routes/Home";
 
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
