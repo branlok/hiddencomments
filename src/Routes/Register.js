@@ -1,14 +1,14 @@
 import React from "react";
 import Logo from "../components/Home/Logo";
-import SignInModal from "../components/Home/SignInModal";
+import RegisterModal from "../components/RegisterModal/index";
 
-function Home() {
+function Register() {
   return (
     <div className="bg-cblue-400 h-full w-full flex justify-center items-center flex-col">
         <Logo/>
-        <SignInModal/>
+        <RegisterModal/>
     </div>
   );
 }
 
-export default Home;
+export default Register;

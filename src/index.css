@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.modernInput {
+  @apply rounded-md my-2 pl-2 ring-indigo-700 focus:ring-4 focus:ring-indigo-300 focus:outline-none;
+}

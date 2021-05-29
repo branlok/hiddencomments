@@ -13,14 +13,13 @@ function Dashboard() {
       .then((response) => {
         console.log(response);
         Promise.resolve();
-        // setAuthenticated(true);
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div>
-      welcome
+
       <button onClick={(e) => signout(e)}>Logout</button>
     </div>
   );
