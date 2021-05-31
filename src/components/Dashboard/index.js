@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { useAuthorization } from "../../context/AuthorizationProvider";
+import UserComments from "./UserComments";
 
 function DashboardInterface() {
   const { authState, logout } = useAuthorization();
@@ -10,7 +12,9 @@ function DashboardInterface() {
   const mutation = useMutation(
     () => {
       return axios
-        .get("http://localhost:3006/authentication/signout")
+        .get("http://localhost:3006/authentication/signout", {
+          withCredentials: true,
+        })
         .then((response) => {
           console.log(response.data);
         });
@@ -25,19 +29,42 @@ function DashboardInterface() {
     }
   );
   let history = useHistory();
-  
-    if (!authState.authorized) history.push("/");
-  return (
-    <div className="h-full w-full flex-initial p-5">
-      <h1 className="text-white text-5xl font-bold">Hello , username</h1>
-      <div>
-        <h1>History</h1>
-        <div>//body</div>
+
+  if (!authState.authorized) history.push("/");
+  if (authState.authorized && authState.username) {
+    return (
+      <div className="h-auto w-full flex-initial p-5">
+        <h1 className="text-white text-5xl font-bold">
+          Hello, {authState.username}
+        </h1>
+        <div className="my-2">
+          <button
+            className="text-red-500 font-bold border-2 border-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
+            onClick={() => mutation.mutate()}
+          >
+            Sign out
+          </button>
+        </div>
+        <UserComments />
+        {authState.authorized.toString()};
       </div>
-      {authState.authorized.toString()};
-      <button onClick={() => mutation.mutate()}>singout</button>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="bg-cblue-400 h-full w-full flex justify-center items-center flex-col text-white">
+        <h1 className="text-xl font-bold">
+          {" "}
+          We only accept videos with comments disabled
+        </h1>
+        <p>
+          Return to
+          <Link to="/" className="text-gray-200">
+            <span className="text-blue-500">Home</span>
+          </Link>
+        </p>
+      </div>
+    );
+  }
 }
 
 export default DashboardInterface;

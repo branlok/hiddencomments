@@ -5,7 +5,7 @@ import Nav from "../components/Dashboard/Nav";
 function Dashboard() {
   return (
     <div
-      className="bg-cblue-400 h-full w-full flex 
+      className="bg-cblue-400 h-auto w-full flex 
       flex-col"
     > 
       <Nav />

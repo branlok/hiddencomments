@@ -2,26 +2,35 @@ import { Formik, Form, Field } from "formik";
 import React, { useRef } from "react";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import * as yup from "yup";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 function CommentMaker({ videoId }) {
   let { authState } = useAuthorization();
+  const queryClient = useQueryClient();
+  let mutation = useMutation(
+    (values) => {
+      return axios
+        .post(`http://localhost:3006/comments`, values, {
+          withCredentials: true,
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("comments");
+      },
+    }
+  );
 
-  let mutation = useMutation((values) => {
-    return axios
-      .post(`http://localhost:3006/comments`, values, {
-        withCredentials: true,
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  });
+  let myFormRef = useRef();
 
   //    uid: authState.user.uid,
   let initialValues = {
     commentBody: "",
   };
-  let myFormRef = useRef();
+
   let validationSchema = yup.object().shape({
     commentBody: yup.string().required().max(500),
   });
@@ -46,15 +55,21 @@ function CommentMaker({ videoId }) {
     >
       <Form className="my-2 w-full">
         <Field
-          className="bg-cblue-300 h-20 w-full p-2 text-white font-bold rounded-md"
+          className="bg-cblue-300 h-20 w-full p-2 text-white font-bold rounded-md customRing"
           as="textarea"
           placeholder="leave a comment"
           name="commentBody"
           onKeyDown={onEnterPress}
         />
-        <button type="submit" className="text-white" ref={myFormRef}>
-          Comment
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="text-white border-2 px-2 py-1 rounded-md mt-2 hover:bg-cblue-300"
+            ref={myFormRef}
+          >
+            Comment
+          </button>
+        </div>
       </Form>
     </Formik>
   );

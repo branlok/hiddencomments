@@ -13,13 +13,15 @@ function SignInModal() {
   const [serverError, setServerError] = useState(null);
 
   const mutation = useMutation(async (values) => {
-    return await axios
+    return axios
       .post("http://localhost:3006/authentication/signin", values, {
         withCredentials: true,
       })
       .then((response) => {
         console.log(response.data);
-        login(response.data.user);
+        return response;
+      })
+      .then((response) => {
         return response;
       });
   });
@@ -52,7 +54,9 @@ function SignInModal() {
       initialValues={{ username: "", password: "" }}
       onSubmit={(values, { resetForm }) => {
         mutation.mutate(values, {
-          onSuccess: () => {
+          onSuccess: (data) => {
+            console.log(data.data.user);
+            login(data.data.user);
             history.push("/dashboard");
           },
           onError: (err) => {

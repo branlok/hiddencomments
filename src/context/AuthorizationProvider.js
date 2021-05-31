@@ -11,12 +11,10 @@ const AuthorizationContext = createContext();
 
 const initialState = {
   authorized: localStorage.getItem("authorized") ? true : false,
-  user: {
-    username: localStorage.getItem("username")
-      ? localStorage.getItem("username")
-      : false,
-    uid: localStorage.getItem("id") ? localStorage.getItem("id") : false,
-  },
+  username: localStorage.getItem("username")
+    ? localStorage.getItem("username")
+    : false,
+  uid: localStorage.getItem("id") ? localStorage.getItem("id") : false,
 };
 
 export function useAuthorization() {
@@ -28,6 +26,7 @@ export function useAuthorization() {
     localStorage.setItem("authorized", Date.now());
     localStorage.setItem("username", user.username);
     localStorage.setItem("id", user.uid);
+    console.log("do i even run lol");
     dispatch({ type: "authorized", payload: user });
   };
 
@@ -46,6 +45,7 @@ export function useAuthorization() {
 }
 
 function authReducer(state, action) {
+  console.log({ ...state, authorized: true, ...action.payload }, "re");
   switch (action.type) {
     case "authorized":
       return { ...state, authorized: true, ...action.payload };

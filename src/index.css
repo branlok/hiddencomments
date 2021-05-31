@@ -13,8 +13,13 @@ body,
 #root {
   height: 100%;
   width: 100%;
+  background-color: #15131A;
 }
 
 .modernInput {
   @apply rounded-md my-2 pl-2 ring-indigo-700 focus:ring-4 focus:ring-indigo-300 focus:outline-none;
+}
+
+.customRing {
+  @apply ring-indigo-700 focus:ring-4 focus:ring-indigo-300 focus:outline-none;
 }

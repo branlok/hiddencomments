@@ -49,7 +49,7 @@ const App = () => {
             </Switch>
           </div>
         </Router>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </AuthorizationProvider>
   );
