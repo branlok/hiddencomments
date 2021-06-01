@@ -1,42 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../helpers/axios";
-import { ReactComponent as LinkSVG } from "../../styles/external-svgrepo-com.svg";
+import UserComment from "./UserComment";
 function UserComments() {
-  const query = useQuery("ownComments", () => {
+  let [page, setPage] = useState(1);
+  const query = useQuery(["ownComments", page], () => {
     return axiosInstance
-      .get("/comments/own")
+      .get(`/comments/own?page=${page}`)
       .then((res) => res.data);
   });
 
   if (query.isSuccess) {
+    if (query.data.message == "noComments")
+      return (
+        <div>
+          <h1 className="pt-4 border-t-2 border-gray-700 text-2xl text-white font-bold sm:text-3xl">
+            History
+          </h1>
+          <div className="rounded-md bg-cblue-500 my-5 h-40 w-full text-white w-full flex justify-center items-center text-xl font-bold">
+            <h2></h2>You haven't Commented on anything yet !
+          </div>
+        </div>
+      );
     return (
       <div>
-        <h1 className="text-2xl text-white font-bold sm:text-3xl">History</h1>
+        <h1 className="pt-4 border-t-2 border-gray-700 text-2xl text-white font-bold sm:text-3xl">
+          History
+        </h1>
         {query.data.map((item) => {
-          return (
-            <div
-              className={`sm:w-3/4 ransition-all hover:border-gray-700 overflow-hidden relative min-h-24 w-full bg-cblue-300 px-4 py-4  my-2 rounded-md flex flex-col border-2 border-gray-500  transition`}
-            >
-              <div className="w-full flex items-center">
-                <h1 className="font-bold text-white">{item.username}</h1>
-                <p className="px-2 text-gray-500 text-xs">3 days ago</p>
-              </div>
-              <p className="text-white text-gray-300">{item.body}</p>
-              <div className="absolute bottom-2 right-2 h-5 w-full flex justify-end">
-                <Link to={`/watch?v=${item.video_id}`}>
-                  <LinkSVG className="h-5 w-5 fill-current text-white" />
-                </Link>
-              </div>
-            </div>
-          );
+          return <UserComment item={item} key={`comments${item.comment_id}`} />;
         })}
+        <PageChange page={page} setPage={setPage} data={query.data} />
       </div>
     );
   } else {
     return <div>Something went wrong</div>;
   }
+}
+
+function PageChange({ page, setPage, data }) {
+  //temporary solution for assuming les than 10 pages is the end of content
+  return (
+    <div className="my-4 w-full flex justify-center items-center text-white">
+      {page != 1 && (
+        <button
+          className="px-2"
+          onClick={() => setPage((prevState) => Math.max(prevState - 1, 1))}
+        >
+          Previous
+        </button>
+      )}
+      {data.length < 10 ? null : (
+        <button
+          className="px-2"
+          onClick={() => setPage((prevState) => prevState + 1)}
+        >
+          Next
+        </button>
+      )}
+    </div>
+  );
 }
 
 export default UserComments;

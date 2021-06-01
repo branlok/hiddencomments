@@ -27,7 +27,7 @@ function RecentlyAdded() {
   if (query.isSuccess) {
     console.log(query.data);
     return (
-      <div className="my-2 lg:doubleWidth w-full delay-100 flex relative max-h-40  h-40 opacity-10 hover:opacity-100 transition-all">
+      <div className="my-2  w-full delay-100 flex relative max-h-40  h-40 opacity-10 hover:opacity-100 transition-all">
         <div className="hidden sm:flex flex-none bg-transparent h-40 w-16 flex justify-center items-center transition-colors cursor-pointer">
           <ArrowSVG
             onClick={handleRightClick}

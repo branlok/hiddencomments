@@ -1,10 +1,10 @@
-
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import axiosInstance from "../../helpers/axios";
+import RecentlyAdded from "../VideoPost/RecentlyAdded";
 import UserComments from "./UserComments";
 
 function DashboardInterface() {
@@ -12,11 +12,9 @@ function DashboardInterface() {
 
   const mutation = useMutation(
     () => {
-      return axiosInstance
-        .get("/authentication/signout")
-        .then((response) => {
-          console.log(response.data);
-        });
+      return axiosInstance.get("/authentication/signout").then((response) => {
+        console.log(response.data);
+      });
     },
     {
       onSuccess: () => {
@@ -36,13 +34,17 @@ function DashboardInterface() {
         <h1 className="text-white text-5xl font-bold">
           Hello, {authState.username}
         </h1>
-        <div className="my-2">
+        <div className="my-8">
           <button
             className="text-red-500 font-bold border-2 border-red-500 px-2 py-1 rounded-md hover:bg-red-500 hover:text-white transition"
             onClick={() => mutation.mutate()}
           >
             Sign out
           </button>
+        </div>
+        <h1  className="mb-2 text-2xl text-white font-bold sm:text-3xl">Recent Community Entries</h1>
+        <div className="w-full border-t-2  border-gray-700 ">
+          <RecentlyAdded />
         </div>
         <UserComments />
       </div>
