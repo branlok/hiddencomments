@@ -10,6 +10,7 @@ import NestedComment from "./NestedComment";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import axiosInstance from "../../helpers/axios";
+import { ReactComponent as LoadingSVG } from "../../styles/spinner-two-svgrepo-com.svg";
 function Comment({ item, nested }) {
   const [replyComment, setReplyComment] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -51,7 +52,8 @@ function Comment({ item, nested }) {
           minPeriod="30"
         />
       </div>
-      {confirmDelete && (
+
+      {confirmDelete && mutation.isIdle && (
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -59,7 +61,7 @@ function Comment({ item, nested }) {
           className="w-full h-full flex flex-col justify-center items-center z-10 bg-cblue-300 text-white absolute top-0 left-0  "
         >
           <p className="font-bold text-lg my-2">Confirm to Delete</p>
-          <div className="">
+          <div>
             <button
               onClick={() => setConfirmDelete(false)}
               className="px-1 py-0.5 mx-2 focus:outline-none "
@@ -73,6 +75,12 @@ function Comment({ item, nested }) {
               Delete
             </button>
           </div>
+        </div>
+      )}
+      {mutation.isLoading && (
+        <div className="w-full h-full flex flex-col justify-center items-center z-10 bg-cblue-300 text-white absolute top-0 left-0  ">
+          <LoadingSVG className="fill-current text-white animate-spin w-10 h-10" />
+          <p className="text-white font-weght bold my-2">Deleting</p>
         </div>
       )}
       {item.user_id == authState.uid && (
@@ -89,7 +97,11 @@ function Comment({ item, nested }) {
       <p className="text-white text-gray-300">{item.body}</p>
       {replyComment ? (
         <>
-          <NestedComment commentID={item.comment_id} depth={item.depth} numOfReplies={item.num_of_replies}/>
+          <NestedComment
+            commentID={item.comment_id}
+            depth={item.depth}
+            numOfReplies={item.num_of_replies}
+          />
 
           <ReplyComment
             replyTo={item.comment_id}

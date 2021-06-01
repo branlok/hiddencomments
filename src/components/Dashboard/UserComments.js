@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 import axiosInstance from "../../helpers/axios";
 import UserComment from "./UserComment";
+import FullPageLoading from "../VideoPost/Resources/FullPageLoading";
 function UserComments() {
   let [page, setPage] = useState(1);
   const query = useQuery(["ownComments", page], () => {
@@ -10,7 +10,7 @@ function UserComments() {
       .get(`/comments/own?page=${page}`)
       .then((res) => res.data);
   });
-
+  
   if (query.isSuccess) {
     if (query.data.message == "noComments")
       return (
@@ -34,8 +34,10 @@ function UserComments() {
         <PageChange page={page} setPage={setPage} data={query.data} />
       </div>
     );
-  } else {
-    return <div>Something went wrong</div>;
+  } else if (query.isLoading) {
+    return (
+        <div className="h-80 w-full"><FullPageLoading/></div>  
+    );
   }
 }
 

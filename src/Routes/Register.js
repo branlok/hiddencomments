@@ -7,6 +7,7 @@ function Register() {
     <div className="bg-cblue-400 h-full w-full flex justify-center items-center flex-col">
         <Logo/>
         <RegisterModal/>
+
     </div>
   );
 }

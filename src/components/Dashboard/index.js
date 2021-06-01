@@ -42,9 +42,11 @@ function DashboardInterface() {
             Sign out
           </button>
         </div>
-        <h1  className="mb-2 text-2xl text-white font-bold sm:text-3xl">Recent Community Entries</h1>
+        <h1 className="mb-2 text-2xl text-white font-bold sm:text-3xl">
+          Recent Community Entries
+        </h1>
         <div className="w-full border-t-2  border-gray-700 ">
-          <RecentlyAdded />
+          <RecentlyAdded noHide={true} />
         </div>
         <UserComments />
       </div>
@@ -53,7 +55,6 @@ function DashboardInterface() {
     return (
       <div className="bg-cblue-400 h-full w-full flex justify-center items-center flex-col text-white">
         <h1 className="text-xl font-bold">
-          {" "}
           We only accept videos with comments disabled
         </h1>
         <p>

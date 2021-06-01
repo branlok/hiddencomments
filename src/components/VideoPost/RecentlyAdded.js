@@ -6,7 +6,7 @@ import axiosInstance from "../../helpers/axios";
 
 
 import { ReactComponent as ArrowSVG } from "../../styles/right-arrow-in-circular-button-svgrepo-com.svg";
-function RecentlyAdded() {
+function RecentlyAdded({noHide}) {
   const query = useQuery("recently added videos", () => {
     return axiosInstance
       .get("/watch/list")
@@ -27,7 +27,7 @@ function RecentlyAdded() {
   if (query.isSuccess) {
     console.log(query.data);
     return (
-      <div className="my-2  w-full delay-100 flex relative max-h-40  h-40 opacity-10 hover:opacity-100 transition-all">
+      <div className={`my-2  w-full delay-100 flex relative max-h-40  h-40 ${noHide ? "opacity-100" : "opacity-10"} hover:opacity-100 transition-all`}>
         <div className="hidden sm:flex flex-none bg-transparent h-40 w-16 flex justify-center items-center transition-colors cursor-pointer">
           <ArrowSVG
             onClick={handleRightClick}
