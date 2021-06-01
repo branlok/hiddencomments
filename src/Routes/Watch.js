@@ -18,7 +18,7 @@ function Watch() {
 
   let query = useQuery(["videoPost", parsed], () => {
     return axiosInstance
-      .get(`/watch?v=${parsed}`, { withCredentials: true })
+      .get(`/watch?v=${parsed}`)
       .then((res) => res.data);
   });
 

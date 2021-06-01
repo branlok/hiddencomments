@@ -1,9 +1,10 @@
-import axios from "axios";
+
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import * as yup from "yup";
 import { useAuthorization } from "../../context/AuthorizationProvider";
+import axiosInstance from "../../helpers/axios";
 
 function ReplyComment({ videoId, replyTo }) {
   let { authState } = useAuthorization();
@@ -11,10 +12,8 @@ function ReplyComment({ videoId, replyTo }) {
 
   let mutation = useMutation(
     (values) => {
-      return axios
-        .post(`http://localhost:3006/comments`, values, {
-          withCredentials: true,
-        })
+      return axiosInstance
+        .post(`http://localhost:3006/comments`, values)
         .catch((err) => {
           console.log(err.response);
         });
