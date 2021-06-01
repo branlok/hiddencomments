@@ -1,4 +1,4 @@
-#Hidden Comment
+# Hidden Comment
 This application allows community to create discussion upon youtube video which have comments disabled.
 One stop shop, it utilizes the same parameters as youtube.
 a second of changing a domain name.
