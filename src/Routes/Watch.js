@@ -5,14 +5,18 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import CommentMaker from "../components/VideoPost/CommentMaker";
 import CommentViewer from "../components/VideoPost/CommentViewer";
-import VideoNotFound from "../components/VideoPost/BlockedPages/VideoNotFound";
-import DoNotQualify from "../components/VideoPost/BlockedPages/DoNotQualify";
+import VideoNotFound from "../components/VideoPost/Resources/VideoNotFound";
+import DoNotQualify from "../components/VideoPost/Resources/DoNotQualify";
+import FullPageLoading from "../components/VideoPost/Resources/FullPageLoading";
+import { Link } from "react-router-dom";
+import VideoPlayer from "../components/VideoPost/VideoPlayer";
+import RecentlyAdded from "../components/VideoPost/RecentlyAdded";
 
 function Watch() {
   let location = useLocation();
   let parsed = queryString.parse(location.search).v;
 
-  let query = useQuery("videoPost", () => {
+  let query = useQuery(["videoPost", parsed], () => {
     return axios
       .get(`http://localhost:3006/watch?v=${parsed}`, { withCredentials: true })
       .then((res) => res.data);
@@ -30,13 +34,19 @@ function Watch() {
     return (
       //TOPIC
 
-      <div className="bg-cblue-4ƒ00 h-auto w-full flex justify-center items-center flex-col">
-        <section className="my-4 w-full lg:w-1/2 m-auto flex items-center flex-col">
+      <div className="no-scrollbar bg-cblue-400 h-auto w-full flex justify-center items-center flex-col overflow-x-hidden">
+        <section className="my-4 w-full lg:w-1/2 lg:px-0 px-4 m-auto flex items-center flex-col">
           <h1 className="text-xl font-bold text-white my-2">
-            {query.data.title}
+            <a href={`https://www.youtube.com/watch?v=${query.data.video_id}`}>
+              {" "}
+              {query.data.title}
+            </a>
           </h1>
-          <img src={query.data.thumbnail} />
+          {/* <img src={query.data.thumbnail} /> */}
+          <VideoPlayer videoID={query.data.video_id} />
+
           <CommentMaker videoId={parsed} />
+          <RecentlyAdded/>
         </section>
         <section className="bg-cblue-500 w-full h-full pb-40">
           <CommentViewer videoId={parsed} />
@@ -44,8 +54,7 @@ function Watch() {
       </div>
     );
   } else if (query.isLoading) {
-    console.log("this ran");
-    return <div>LOADING</div>;
+    return <FullPageLoading />;
   }
 }
 

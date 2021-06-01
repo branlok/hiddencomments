@@ -6,17 +6,16 @@ import axios from "axios";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../helpers/axios";
 
 function SignInModal() {
   const { authState, login } = useAuthorization();
   const history = useHistory();
   const [serverError, setServerError] = useState(null);
-
+  // axiosInstance.post()
   const mutation = useMutation(async (values) => {
-    return axios
-      .post("http://localhost:3006/authentication/signin", values, {
-        withCredentials: true,
-      })
+    return axiosInstance
+      .post("/authentication/signin", values)
       .then((response) => {
         console.log(response.data);
         return response;

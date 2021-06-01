@@ -1,9 +1,10 @@
-import axios from "axios";
+
 import React, { useEffect } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "../../context/AuthorizationProvider";
+import axiosInstance from "../../helpers/axios";
 import UserComments from "./UserComments";
 
 function DashboardInterface() {
@@ -11,10 +12,8 @@ function DashboardInterface() {
 
   const mutation = useMutation(
     () => {
-      return axios
-        .get("http://localhost:3006/authentication/signout", {
-          withCredentials: true,
-        })
+      return axiosInstance
+        .get("/authentication/signout")
         .then((response) => {
           console.log(response.data);
         });

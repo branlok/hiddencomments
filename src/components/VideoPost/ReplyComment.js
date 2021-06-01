@@ -39,11 +39,10 @@ function ReplyComment({ videoId, replyTo }) {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, action) => {
-        console.log(videoId);
         mutation.mutate(
           {
             ...values,
-            uid: authState.user.uid,
+            uid: authState.uid,
             videoId,
             replyTo,
           },

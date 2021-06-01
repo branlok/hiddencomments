@@ -4,18 +4,20 @@ import { ReactComponent as ReplySVG } from "../../styles/back-reply-svgrepo-com 
 import { ReactComponent as DeleteSVG } from "../../styles/close-svgrepo-com (4).svg";
 import { ReactComponent as GarbageSVG } from "../../styles/garbage-trash-svgrepo-com.svg";
 import ReplyComment from "./ReplyComment";
+import TimeAgo from "react-timeago";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import NestedComment from "./NestedComment";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
+import axiosInstance from "../../helpers/axios";
 function Comment({ item, nested }) {
   const [replyComment, setReplyComment] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const queryClient = useQueryClient();
   const mutation = useMutation(
     () => {
-      return axios
-        .delete(`http://localhost:3006/comments?commentID=${item.comment_id}`, {
+      return axiosInstance
+        .delete(`/comments?commentID=${item.comment_id}`, {
           withCredentials: true,
         })
         .then((res) => res.data);
@@ -43,7 +45,11 @@ function Comment({ item, nested }) {
     >
       <div className="w-full flex items-center">
         <h1 className="font-bold text-white">{item.username}</h1>
-        <p className="px-2 text-gray-500 text-xs">3 days ago</p>
+        <TimeAgo
+          className="mx-2 text-xs text-gray-400"
+          date={DateTime.fromISO(item.created_on).toLocal().toJSDate()}
+          minPeriod="30"
+        />
       </div>
       {confirmDelete && (
         <div
@@ -83,7 +89,7 @@ function Comment({ item, nested }) {
       <p className="text-white text-gray-300">{item.body}</p>
       {replyComment ? (
         <>
-          <NestedComment commentID={item.comment_id} depth={item.depth} />
+          <NestedComment commentID={item.comment_id} depth={item.depth} numOfReplies={item.num_of_replies}/>
 
           <ReplyComment
             replyTo={item.comment_id}

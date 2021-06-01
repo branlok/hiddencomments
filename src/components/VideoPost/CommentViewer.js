@@ -1,6 +1,7 @@
-import axios from "axios";
+
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import axiosInstance from "../../helpers/axios";
 import Comment from "./Comment";
 
 function CommentViewer({ videoId }) {
@@ -8,10 +9,8 @@ function CommentViewer({ videoId }) {
   const [showReply, setShowReply] = useState();
 
   let query = useQuery(["comments", page], () => {
-    return axios
-      .get(`http://localhost:3006/comments?v=${videoId}&page=${page}`, {
-        withCredentials: true,
-      })
+    return axiosInstance
+      .get(`/comments?v=${videoId}&page=${page}`)
       .then((res) => res.data);
   });
 

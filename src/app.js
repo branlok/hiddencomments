@@ -18,6 +18,7 @@ import Home from "./Routes/Home";
 import Register from "./Routes/Register";
 import SingUp from "./Routes/SignUp";
 import Watch from "./Routes/Watch";
+import Dropdown from "./components/Dropdown/index";
 axios.defaults.withCredentials = true;
 const App = () => {
   const queryClient = new QueryClient({
@@ -32,7 +33,7 @@ const App = () => {
     <AuthorizationProvider>
       <QueryClientProvider client={queryClient}>
         <Router>
-          <div className="h-full w-full ">
+          <div className="h-full w-full overflow-x-hidden ">
             <Switch>
               <Route path="/" exact>
                 <Home />

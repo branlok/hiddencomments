@@ -1,14 +1,12 @@
-import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../helpers/axios";
 import { ReactComponent as LinkSVG } from "../../styles/external-svgrepo-com.svg";
 function UserComments() {
   const query = useQuery("ownComments", () => {
-    return axios
-      .get("http://localhost:3006/comments/own", {
-        withCredentials: true,
-      })
+    return axiosInstance
+      .get("http://localhost:3006/comments/own")
       .then((res) => res.data);
   });
 

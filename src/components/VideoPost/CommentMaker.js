@@ -3,16 +3,14 @@ import React, { useRef } from "react";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import * as yup from "yup";
 import { useMutation, useQueryClient } from "react-query";
-import axios from "axios";
+import axiosInstance from "../../helpers/axios";
 function CommentMaker({ videoId }) {
   let { authState } = useAuthorization();
   const queryClient = useQueryClient();
   let mutation = useMutation(
     (values) => {
-      return axios
-        .post(`http://localhost:3006/comments`, values, {
-          withCredentials: true,
-        })
+      return axiosInstance
+        .post(`/comments`, values)
         .catch((err) => {
           console.log(err.response);
         });
@@ -26,7 +24,6 @@ function CommentMaker({ videoId }) {
 
   let myFormRef = useRef();
 
-  //    uid: authState.user.uid,
   let initialValues = {
     commentBody: "",
   };
@@ -48,12 +45,12 @@ function CommentMaker({ videoId }) {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, action) => {
-        console.log("submited", values, authState.user.uid);
-        mutation.mutate({ ...values, uid: authState.user.uid, videoId });
+        console.log("submited", values, authState.uid);
+        mutation.mutate({ ...values, uid: authState.uid, videoId });
         action.resetForm();
       }}
     >
-      <Form className="my-2 w-full">
+      <Form className="my-2 w-full ">
         <Field
           className="bg-cblue-300 h-20 w-full p-2 text-white font-bold rounded-md customRing"
           as="textarea"
@@ -64,7 +61,7 @@ function CommentMaker({ videoId }) {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="text-white border-2 px-2 py-1 rounded-md mt-2 hover:bg-cblue-300"
+            className="w-full sm:w-auto text-white border-indigo-500 border-2 px-2 py-1 rounded-md mt-2 hover:bg-cblue-300"
             ref={myFormRef}
           >
             Comment

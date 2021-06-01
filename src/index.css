@@ -13,7 +13,22 @@ body,
 #root {
   height: 100%;
   width: 100%;
-  background-color: #15131A;
+  background-color: #15131a;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior-y: auto;
+}
+
+#root::-webit-scorllbar {
+  display: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
+button {
+  @apply focus:outline-none;
 }
 
 .modernInput {
@@ -22,4 +37,31 @@ body,
 
 .customRing {
   @apply ring-indigo-700 focus:ring-4 focus:ring-indigo-300 focus:outline-none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior-y: auto;
+}
+
+.no-x-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior-x: none;
+}
+
+@layer utilities {
+  @variants responsive {
+    .doubleWidth {
+      min-width: 200%;
+    }
+  }
 }
