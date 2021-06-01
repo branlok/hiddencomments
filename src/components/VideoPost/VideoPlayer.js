@@ -14,7 +14,7 @@ function VideoPlayer({ videoID }) {
         width={size.width}
         height={size.height}
         className="border-2 rounded-lg border-black  my-2"
-        src={`http://www.youtube.com/embed/${videoID}?enablejsapi=1&origin=http://example.com`}
+        src={`http://www.youtube.com/embed/${videoID}?enablejsapi=1&origin=https://stoic-nightingale-8bf870.netlify.app`}
         frameBorder="0"
       ></iframe>
       <div className="hidden sm:flex justify-end items-center w-full text-white my-2">
