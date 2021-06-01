@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation } from "react-router";
 import queryString from "query-string";
 import { useQuery } from "react-query";
-import axios from "axios";
 import CommentMaker from "../components/VideoPost/CommentMaker";
 import CommentViewer from "../components/VideoPost/CommentViewer";
 import VideoNotFound from "../components/VideoPost/Resources/VideoNotFound";
@@ -11,14 +10,15 @@ import FullPageLoading from "../components/VideoPost/Resources/FullPageLoading";
 import { Link } from "react-router-dom";
 import VideoPlayer from "../components/VideoPost/VideoPlayer";
 import RecentlyAdded from "../components/VideoPost/RecentlyAdded";
+import axiosInstance from "../helpers/axios";
 
 function Watch() {
   let location = useLocation();
   let parsed = queryString.parse(location.search).v;
 
   let query = useQuery(["videoPost", parsed], () => {
-    return axios
-      .get(`http://localhost:3006/watch?v=${parsed}`, { withCredentials: true })
+    return axiosInstance
+      .get(`/watch?v=${parsed}`, { withCredentials: true })
       .then((res) => res.data);
   });
 
