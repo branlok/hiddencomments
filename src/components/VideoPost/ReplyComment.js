@@ -13,7 +13,7 @@ function ReplyComment({ videoId, replyTo }) {
   let mutation = useMutation(
     (values) => {
       return axiosInstance
-        .post(`http://localhost:3006/comments`, values)
+        .post(`/comments`, values)
         .catch((err) => {
           console.log(err.response);
         });
