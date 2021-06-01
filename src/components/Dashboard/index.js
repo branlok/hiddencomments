@@ -32,7 +32,7 @@ function DashboardInterface() {
   if (!authState.authorized) history.push("/");
   if (authState.authorized && authState.username) {
     return (
-      <div className="h-auto w-full flex-initial p-5">
+      <div className="h-full w-full flex-initial p-5">
         <h1 className="text-white text-5xl font-bold">
           Hello, {authState.username}
         </h1>
@@ -45,7 +45,6 @@ function DashboardInterface() {
           </button>
         </div>
         <UserComments />
-        {authState.authorized.toString()};
       </div>
     );
   } else {

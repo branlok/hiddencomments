@@ -7,8 +7,7 @@ function Dashboard() {
     <div
       className="bg-cblue-400 h-auto w-full flex 
       flex-col"
-    > 
-      <Nav />
+    >
       <DashboardInterface />
     </div>
   );
