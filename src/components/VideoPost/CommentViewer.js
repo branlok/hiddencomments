@@ -8,7 +8,7 @@ function CommentViewer({ videoId }) {
   const [page, setPage] = useState(1);
   const [showReply, setShowReply] = useState();
 
-  let query = useQuery(["comments", page], () => {
+  let query = useQuery(["comments", page, videoId], () => {
     return axiosInstance
       .get(`/comments?v=${videoId}&page=${page}`)
       .then((res) => res.data);
