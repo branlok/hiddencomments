@@ -1,4 +1,3 @@
-
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -12,11 +11,9 @@ function ReplyComment({ videoId, replyTo }) {
 
   let mutation = useMutation(
     (values) => {
-      return axiosInstance
-        .post(`/comments`, values)
-        .catch((err) => {
-          console.log(err.response);
-        });
+      return axiosInstance.post(`/comments`, values).catch((err) => {
+        console.log(err.response);
+      });
     },
     {
       onSuccess: () => {
@@ -54,19 +51,25 @@ function ReplyComment({ videoId, replyTo }) {
         action.resetForm();
       }}
     >
-      <Form className="mt-4 w-full">
-        <Field
-          className="bg-gray-800 h-12 w-full p-2 text-white font-bold rounded-md
+      {({ handleSubmit }) => (
+        <Form className="mt-4 w-full" onSubmit={e => {
+            e.preventDefault();
+            //added extra prevention for ios environment
+            handleSubmit();
+        }}>
+          <Field
+            className="bg-gray-800 h-12 w-full p-2 text-white font-bold rounded-md
             outline-none
           border-2 border-gray-500 
           focus:bg-cblue-400
           "
-          autoComplete="off"
-          type="text"
-          placeholder="leave a comment"
-          name="commentBody"
-        />
-      </Form>
+            autoComplete="off"
+            type="text"
+            placeholder="leave a comment"
+            name="commentBody"
+          />
+        </Form>
+      )}
     </Formik>
   );
 }
