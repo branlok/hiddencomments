@@ -6,7 +6,7 @@ import { ReactComponent as LinkSVG } from "../../styles/external-svgrepo-com.svg
 function UserComments() {
   const query = useQuery("ownComments", () => {
     return axiosInstance
-      .get("http://localhost:3006/comments/own")
+      .get("/comments/own")
       .then((res) => res.data);
   });
 

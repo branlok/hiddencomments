@@ -46,7 +46,7 @@ function Watch() {
           <VideoPlayer videoID={query.data.video_id} />
 
           <CommentMaker videoId={parsed} />
-          <RecentlyAdded/>
+          <RecentlyAdded />
         </section>
         <section className="bg-cblue-500 w-full h-full pb-40">
           <CommentViewer videoId={parsed} />
@@ -55,6 +55,8 @@ function Watch() {
     );
   } else if (query.isLoading) {
     return <FullPageLoading />;
+  } else {
+    return <div>failed </div>;
   }
 }
 
