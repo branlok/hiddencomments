@@ -67,14 +67,8 @@ function SignInModal() {
       }}
     >
       {(props) => (
-        <Form className="w-80 flex flex-col justify-center items-center border-2 border-gray-600 p-5 m-2 rounded-md">
+        <Form className="relative w-80 flex flex-col justify-center items-center border-2 border-gray-600 p-5 m-2 rounded-md">
           {ErrorNotice(props.errors)}
-          {/* {props.errors.username || props.errors.password ? (
-            <h1 className="text-red-500 font-bold border-red-500 rounded-md border-2 px-4 py-1 mb-4 ">
-              Username and Password are Required
-            </h1>
-          ) : null} */}
-
           <label className="text-gray-200 font-bold" htmlFor="username">
             Username
           </label>
@@ -91,10 +85,10 @@ function SignInModal() {
           </span>
 
           <button
-            className="text-white hover:bg-cblue-300 py-1 px-3 my-2 rounded-sm transition"
+            className={`${mutation.isLoading && "animate-pulse"} text-white hover:bg-cblue-300 py-1 px-3 my-2 rounded-sm transition`}
             type="submit"
           >
-            Sign in
+           Sign in
           </button>
           <Link
             to={"/register"}

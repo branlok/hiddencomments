@@ -33,7 +33,7 @@ function Watch() {
       //TOPIC
 
       <div className="no-scrollbar bg-cblue-400 h-auto w-full flex justify-center items-center flex-col overflow-x-hidden">
-        <nav className="h-10 flex justify-between items-center w-full bg-cblue-1000">
+        <nav className="h-10 flex justify-between items-center w-full bg-cblue-1000 border-b border-gray-600">
           <div className="text-gray-100 font-bold mx-4 ">HiddenComment</div>
           <Link to="/dashboard">
             <HomeSVG className="fill-current text-gray-200 mx-2 rounded-md hover:bg-gray-500 p-1" />

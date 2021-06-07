@@ -32,7 +32,7 @@ function UserComment({ item }) {
       </div>
       <div className="hidden sm:block flex align-stretch overflow-hidden border-white border-2 w-full  bg-cblue-500  p-2 my-2 rounded-md  border-2 border-gray-500">
         <img
-          className="rounded-md object-cover h-32 w-full "
+          className="rounded-sm object-cover h-32 w-full "
           src={item.thumbnail}
         ></img>
       </div>
