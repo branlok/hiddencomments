@@ -10,15 +10,12 @@ import {
   Redirect,
 } from "react-router-dom";
 import Dashboard from "./Routes/Dashboard";
-import SignIn from "./components/SignIn";
 import AuthorizationProvider, {
   useAuthorization,
 } from "./context/AuthorizationProvider";
 import Home from "./Routes/Home";
 import Register from "./Routes/Register";
-import SingUp from "./Routes/SignUp";
 import Watch from "./Routes/Watch";
-import Dropdown from "./components/Dropdown/index";
 import Information from "./components/Information";
 axios.defaults.withCredentials = true;
 const App = () => {
@@ -29,13 +26,14 @@ const App = () => {
       },
     },
   });
+  
 
   return (
     <AuthorizationProvider>
       <QueryClientProvider client={queryClient}>
         <Router>
           <div className="scrollWindow relative h-full w-full overflow-x-hidden ">
-            <Information />
+            <Information/>
             <Switch>
               <Route path="/" exact>
                 <Home />
