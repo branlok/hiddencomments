@@ -29,10 +29,11 @@ function RegisterModal() {
     username: yup
       .string()
       .required("Username is required")
-      .min(2, "Too Short!")
+      .min(6, "Too Short!")
       .max(50, "Too Long!"),
     password: yup
       .string()
+      .min(8, "Too Short! Password must be 8 or more characters")
       .required("Password is required")
       .max(256, "Password is too long"),
   });
@@ -46,7 +47,14 @@ function RegisterModal() {
   };
 
   if (mutation.isSuccess) {
-    return <div className="text-gray-200 font-bold text-xl text-center">You are registered! <br/> <Link to="/"><span className="text-indigo-600">login here</span></Link></div>;
+    return (
+      <div className="text-gray-200 font-bold text-xl text-center">
+        You are registered! <br />{" "}
+        <Link to="/">
+          <span className="text-indigo-600">login here</span>
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -89,14 +97,14 @@ function RegisterModal() {
             Username
           </label>
           <Field className="modernInput" type="text" name="username" />
-          <span className="text-white text-xs text-red-500 mb-2 font-bold ">
+          <span className="text-white text-xs text-red-500 mb-2 font-bold text-center">
             {props.errors.username}
           </span>
           <label className="text-gray-200 font-bold" htmlFor="password">
             Password
           </label>
           <Field className="modernInput" type="password" name="password" />
-          <span className="text-white text-xs text-red-500  mb-2 font-bold">
+          <span className="text-white text-xs text-red-500  mb-2 font-bold text-center">
             {props.errors.password}
           </span>
 

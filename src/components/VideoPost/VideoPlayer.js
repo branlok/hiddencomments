@@ -13,7 +13,7 @@ function VideoPlayer({ videoID }) {
         type="text/html"
         width={size.width}
         height={size.height}
-        className="border-2 rounded-lg border-black  my-2"
+        className="border-2 rounded-lg border-gray-600  my-2"
         src={`https://www.youtube.com/embed/${videoID}?enablejsapi=1&origin=https://stoic-nightingale-8bf870.netlify.app/watch?v=${videoID}`}
         frameBorder="0"
       ></iframe>

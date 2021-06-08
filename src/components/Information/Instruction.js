@@ -26,8 +26,9 @@ function Instruction({ setOpen }) {
             2
           </div>
           <div className="text-xs sm:text-lg  font-bold text-gray-200 w-full  ">
-            Replace youtube domain with hiddencomment <br />
-            <div className="h-10 flex flex-col justify-center items-center sm:inline text-center items-center bg-cblue-300 rounded-full w-full px-2 mt-2">{`www.${phrase}.com/watch?v=GbbxxPR4Fho`}</div>
+            Replace youtube domain with hiddencomment
+            <br />
+            <div className="py-1 h-10 flex flex-col justify-center items-center sm:inline text-center items-center bg-cblue-300 rounded-full w-full px-2 mt-2">{`www.${phrase}.com/watch?v=GbbxxPR4Fho`}</div>
           </div>
         </div>
         <div className="flex justify-start items-start my-2">
@@ -36,6 +37,9 @@ function Instruction({ setOpen }) {
           </div>
           <div className="text-xs sm:text-lg font-bold text-gray-200  ">
             Begin commenting!
+            <span role="img" aria-label="sheep">
+            🎉
+            </span>
           </div>
         </div>
       </div>

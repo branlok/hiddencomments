@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router";
 import Logo from "../components/Home/Logo";
 import SignInModal from "../components/Home/SignInModal";
+import { useAuthorization } from "../context/AuthorizationProvider";
 
 function Home() {
+
   return (
     <div className="bg-cblue-400 h-full w-full flex justify-center items-center flex-col">
       <Logo />

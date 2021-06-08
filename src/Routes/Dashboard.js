@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
+
 import DashboardInterface from "../components/Dashboard";
-import Nav from "../components/Dashboard/Nav";
 
 function Dashboard() {
+
   return (
     <div
       className="bg-cblue-400 h-auto w-full flex 

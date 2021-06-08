@@ -4,30 +4,33 @@ import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useAuthorization } from "../../context/AuthorizationProvider";
 import axiosInstance from "../../helpers/axios";
+import useLogout from "../Utils/useLogout";
 import RecentlyAdded from "../VideoPost/RecentlyAdded";
 import UserComments from "./UserComments";
 
 function DashboardInterface() {
-  const { authState, logout } = useAuthorization();
+  const { authState } = useAuthorization();
+  const mutation = useLogout();
+  // const mutation = useMutation(
+  //   () => {
+  //     return axiosInstance.get("/authentication/signout").then((response) => {
+  //       console.log(response.data);
+  //     });
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       logout();
+  //     },
+  //     onSettled: () => {
+  //       console.log(authState);
+  //     },
+  //   }
+  // );
 
-  const mutation = useMutation(
-    () => {
-      return axiosInstance.get("/authentication/signout").then((response) => {
-        console.log(response.data);
-      });
-    },
-    {
-      onSuccess: () => {
-        logout();
-      },
-      onSettled: () => {
-        console.log(authState);
-      },
-    }
-  );
-  let history = useHistory();
+  // let history = useHistory();
 
-  if (!authState.authorized) history.push("/");
+  // if (!authState.authorized) history.push("/");
+
   if (authState.authorized && authState.username) {
     return (
       <div className="h-full w-full flex-initial p-5">
